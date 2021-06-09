@@ -112,7 +112,7 @@ int main(int argc, char **argv) {
       string dir = "./result/output";
       // zero padding
       // e.g. "output0001.bmp"
-      string num = to_string(frameNumber);
+      string num = std::to_string(frameNumber);
       num = string(4 - num.length(), '0') + num;
       string output = dir + num + ".bmp";
 
@@ -191,8 +191,8 @@ void initGL() { // Initialise GLFW
 }
 
 void initShader() {
-  shaderPar = buildShader("./shader/vsPoint.glsl", "./shader/fsPoint.glsl");
-  shaderSphere = buildShader("./shader/vsPhong.glsl", "./shader/fsPhong.glsl");
+  shaderPar = buildShader("../../shader/vsPoint.glsl", "../../shader/fsPoint.glsl");
+  shaderSphere = buildShader("../../shader/vsPhong.glsl", "../../shader/fsPhong.glsl");
 }
 
 void initMatrix() {
@@ -207,7 +207,7 @@ void initMatrix() {
 }
 
 void initParticles() {
-  loadPoints(particles, "particles.txt");
+  loadPoints(particles, "../../particles.txt");
 
   // create buffer
   int nOfPs = particles.Ps.size();
@@ -253,7 +253,7 @@ void initParticles() {
 }
 
 void initMesh() {
-  mesh = loadObj("./mesh/bunny.obj");
+  mesh = loadObj("../../mesh/bunny.obj");
   createMesh(mesh);
 
   findAABB(mesh);
@@ -565,7 +565,7 @@ void initGrid() {
   //
   // readSdf(grid, "sdfCube.txt");
 
-  readSdfBatty(grid, "sdfBunnyBatty.txt");
+  readSdfBatty(grid, "bunny_vf.sdf");
 }
 
 void initOther() { srand(clock()); }

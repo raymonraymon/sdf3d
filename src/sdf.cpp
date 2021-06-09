@@ -261,8 +261,9 @@ float Grid::getDistance(vec3 p) {
   // transform to the reference frame of the grid
   p -= origin;
 
-  // restriction
-  ivec3 idx = floor(p / cellSize);
+	// restriction
+	glm::vec3 temp = p / cellSize;
+	ivec3 idx = ivec3(floor(temp.x), floor(temp.y), floor(temp.z));
 
   // note that grid origin is set to world origin (0, 0, 0)
   if (idx.x < 0 || idx.x > nOfCells.x - 1) {
