@@ -54,7 +54,7 @@ int main(int argc, char const *argv[]) {
   std::vector<glm::vec3> pointCloud;
 
   /* prepare mesh data */
-  Mesh mesh = loadObj("./mesh/bunny.obj");
+  Mesh mesh = loadObj("../../mesh/bunny.obj");
   createMesh(mesh);
   findAABB(mesh);
 
@@ -142,6 +142,7 @@ int main(int argc, char const *argv[]) {
   /* end of test */
 
   // for the selected range
+  std::vector<Point> pts;
   for (float z = startCell.z; z < endCell.z; z += cellSize) {
     for (float y = startCell.y; y < endCell.y; y += cellSize) {
       for (float x = startCell.x; x < endCell.x; x += cellSize) {
@@ -181,13 +182,17 @@ int main(int argc, char const *argv[]) {
         // if dist < threshold, output grid position
         float threshold = 0.f;
         if (dist < threshold) {
-          pointCloud.push_back(P);
+		 
+		 Point pt;
+		 pt.pos = P;
+		 pts.push_back(pt);
+         pointCloud.push_back(P);
         }
       } // end x direction
     }   // end y direction
   }     // end z direction
 
-  writePointCloud(pointCloud, "test.txt");
+  writePointCloud(pointCloud, "test.obj");
 
   /* glfw loop */
   // a rough way to solve cursor position initialization problem
@@ -235,6 +240,8 @@ void writePointCloud(vector<vec3> &pointCloud, const string fileName) {
   ofstream output(fileName);
 
   for (size_t i = 0; i < pointCloud.size(); i++) {
+	output << "v";
+	output << " ";
     output << pointCloud[i].x;
     output << " ";
     output << pointCloud[i].y;
@@ -332,7 +339,7 @@ void initLight() { // light
 
 void initShader() {
   // build shader program
-  exeShader = buildShader("./shader/vsPhong.glsl", "./shader/fsPhong.glsl");
+  exeShader = buildShader("../../shader/vsPhong.glsl", "../../shader/fsPhong.glsl");
   glUseProgram(exeShader);
 }
 

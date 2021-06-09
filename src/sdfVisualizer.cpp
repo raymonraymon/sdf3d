@@ -76,7 +76,7 @@ int main(int argc, char const *argv[]) {
   // }
   for (size_t i = 0; i < grid.cells.size(); i++) {
     Cell &cell = grid.cells[i];
-    if (cell.sd < 0) {
+    if (cell.sd > -0.015 && cell.sd < 0.015) {
       Point p;
       p.pos = cell.pos;
       p.color = vec3(0.5, 0.5, 0.5);
@@ -259,9 +259,9 @@ void initLight() { // light
 }
 
 void initShader() {
-  shaderMesh = buildShader("./shader/vsPhong.glsl", "./shader/fsPhong.glsl");
-  shaderPoint = buildShader("./shader/vsPoint.glsl", "./shader/fsPoint.glsl");
-  shaderLine = buildShader("./shader/vsLine.glsl", "./shader/fsLine.glsl");
+  shaderMesh = buildShader("../../shader/vsPhong.glsl", "../../shader/fsPhong.glsl");
+  shaderPoint = buildShader("../../shader/vsPoint.glsl", "../../shader/fsPoint.glsl");
+  shaderLine = buildShader("../../shader/vsLine.glsl", "../../shader/fsLine.glsl");
 }
 
 void releaseResource() {
@@ -362,7 +362,7 @@ void initGrid() {
   //
   // readSdf(grid, "sdfBunnyMine.txt");
 
-  readSdfBatty(grid, "sdfBunnyBatty.txt");
+  readSdfBatty(grid, "bunny_vf.sdf");
 }
 
 // format: x, y, z, i, j, k, dist
@@ -459,7 +459,7 @@ float randf() {
 
 void initMesh() {
   /* prepare mesh data */
-  mesh = loadObj("./mesh/bunny.obj");
+  mesh = loadObj("../../mesh/bunny.obj");
   createMesh(mesh);
   findAABB(mesh);
 
